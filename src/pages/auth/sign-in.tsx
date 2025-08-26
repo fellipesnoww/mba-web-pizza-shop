@@ -4,6 +4,8 @@ import { Label } from '@/components/ui/label';
 import { Helmet } from 'react-helmet-async';
 import { useForm } from 'react-hook-form';
 import { z } from 'zod';
+import { toast } from 'sonner';
+
 
 const signInForm = z.object({
     email: z.email(),
@@ -19,6 +21,12 @@ export function SignIn() {
 
     function handleSignIn(data: SignInForm) {
         console.log(data);
+        toast.success('Enviamos um link de autenticação para seu e-mail.', {
+            action: {
+                label: 'Reenviar',
+                onClick: () => { handleSignIn(data) },
+            }
+        });
     }
 
     return (
