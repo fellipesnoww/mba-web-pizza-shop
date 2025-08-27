@@ -6,6 +6,8 @@ import { useForm } from 'react-hook-form';
 import { z } from 'zod';
 import { toast } from 'sonner';
 import { Link, useNavigate } from 'react-router';
+import { useMutation } from '@tanstack/react-query';
+import { registerRestaurant } from '@/api/register-restaurant';
 
 
 const signUpForm = z.object({
@@ -25,14 +27,28 @@ export function SignUp() {
 
     const navigate = useNavigate();
 
-    function handleSignUp(data: SignUpForm) {
-        console.log(data);
-        toast.success('Restaurante cadastrado com sucesso.', {
-            action: {
-                label: 'Login',
-                onClick: () => navigate('/sign-in'),
-            }
-        });
+    const { mutateAsync: registerRestaurantFn } = useMutation({
+        mutationFn: registerRestaurant
+    })
+
+    async function handleSignUp(data: SignUpForm) {
+        try {
+            await registerRestaurantFn({
+                email: data.email,
+                restaurantName: data.restaurantName,
+                managerName: data.managerName,
+                phone: data.phone
+            })
+            toast.success('Restaurante cadastrado com sucesso.', {
+                action: {
+                    label: 'Login',
+                    onClick: () => navigate(`/sign-in?email=${data.email}`),
+                }
+            });
+        } catch (error) {
+            toast.error("Erro ao cadastrar restaurante")
+        }
+        
     }
 
     return (
