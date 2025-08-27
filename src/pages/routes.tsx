@@ -6,11 +6,13 @@ import { AppLayout } from "./_layouts/app";
 import { AuthLayout } from "./_layouts/auth";
 import { SignUp } from "./auth/sign-up";
 import { Orders } from "./app/orders/orders";
+import { NotFound } from "./404";
 
 export const router = createBrowserRouter([
   {
     path: "/",
     element: <AppLayout />,
+    errorElement: <NotFound />,
     children: [{
       path: "/",
       element: <Dashboard />,
