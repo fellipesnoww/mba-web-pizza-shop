@@ -8,6 +8,7 @@ import { useQuery } from "@tanstack/react-query";
 import { getOrders } from "@/api/get-orders";
 import { useSearchParams } from "react-router";
 import { z } from 'zod';
+import { OrderTableSkeleton } from "./order-table-skeleton";
 
 export function Orders() {
 
@@ -21,7 +22,7 @@ export function Orders() {
     const customerName = searchParams.get('customerName');
     const status = searchParams.get('status'); 
 
-    const { data: result } = useQuery({
+    const { data: result, isLoading: isLoadingOrders } = useQuery({
         queryKey: ['orders', pageIndex, orderId, customerName, status],
         queryFn:() => getOrders({ pageIndex, orderId, customerName, status: status === ''  ? null : status})
     });
@@ -61,6 +62,7 @@ export function Orders() {
                             </TableBody>
                         </Table>
                     </div>
+                    {isLoadingOrders && <OrderTableSkeleton />}
                     {result && (
                         <Pagination 
                             pageIndex={result.meta.pageIndex}

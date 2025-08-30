@@ -6,7 +6,7 @@ import { MetricCardSkeleton } from "./metric-card-skeleton";
 
 export function DayOrdersAmountCard(){
 
-    const { data: dayOrdersAmount, isFetched: isLoadingOrdersAmount } = useQuery({
+    const { data: dayOrdersAmount } = useQuery({
         queryFn: getDayOrdersAmount,
         queryKey: ['metrics', 'day-orders-amount']
     });
