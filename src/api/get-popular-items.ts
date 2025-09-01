@@ -1,8 +1,8 @@
 import { api } from "@/lib/axios";
 
 export type GetPopularProductsResponse = {
-    products: string;
-    amout: number;
+    product: string;
+    amount: number;
 }[]
 
 export async function getPopularProducts(){
