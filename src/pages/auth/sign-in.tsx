@@ -40,7 +40,7 @@ export function SignIn() {
                 }
             });
         } catch (error) {
-            toast.error("Erro ao autenticar")
+            toast.error("Credenciais inválidas.")
         }
     }
 
